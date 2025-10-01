@@ -1,5 +1,6 @@
 import os
 from datetime import date, timedelta
+from openpyxl import Workbook
 
 
 def get_previous_month_path():
@@ -39,3 +40,37 @@ def get_previous_month_path():
     # Create final folder
     os.makedirs(folder_path)
     return folder_path, f"{folder_name_base}_{idx:02d}"
+
+
+def create_dummy_excel_file_listwa(files_path, file_name):
+    # Ensure directory exists
+    os.makedirs(files_path, exist_ok=True)
+
+    # Full path for the file
+    file_path = os.path.join(files_path, file_name + ".XLSX")
+
+    # Create a new workbook and select active sheet
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Sheet1"
+
+    # Define headers
+    headers = [
+        "Zlecenie",
+        "Nr materiału",
+        "Krótki tekst materiału",
+        "Ilość dostarczona (GMEIN)",
+        "Jednostka miary (=GMEIN)"
+    ]
+
+    # Add headers to first row
+    ws.append(headers)
+
+    # Add a row with zeros (or empty string for text columns if you prefer)
+    zero_row = [0, 0, 0, 0, 0]
+    ws.append(zero_row)
+
+    # Save file
+    wb.save(file_path)
+    print(f"Excel file created: {file_path}")
+
