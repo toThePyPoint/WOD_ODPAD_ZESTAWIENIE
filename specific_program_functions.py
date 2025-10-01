@@ -47,7 +47,7 @@ def create_dummy_excel_file_listwa(files_path, file_name):
     os.makedirs(files_path, exist_ok=True)
 
     # Full path for the file
-    file_path = os.path.join(files_path, file_name + ".XLSX")
+    file_path = os.path.join(files_path, file_name)
 
     # Create a new workbook and select active sheet
     wb = Workbook()
